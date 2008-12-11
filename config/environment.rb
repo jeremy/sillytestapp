@@ -70,7 +70,7 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
-  config.middleware.use Rack::Profiler
+  config.middleware.use Rack::Profiler, :printer => :call_tree
 end
 
 Dispatcher.after_dispatch do
