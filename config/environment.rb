@@ -71,7 +71,3 @@ Rails::Initializer.run do |config|
     config.middleware.use Rack::Profiler, :printer => :call_tree
   end
 end
-
-Dispatcher.after_dispatch do
-  ActiveRecord::Base.clear_active_connections!
-end
