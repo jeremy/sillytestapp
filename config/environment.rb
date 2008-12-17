@@ -10,9 +10,6 @@ RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
-gem 'rack-contrib', '>= 0.4.0'
-require 'rack/profiler'
-
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -70,7 +67,9 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
-  config.middleware.use Rack::Profiler, :printer => :call_tree
+  if RUBY_VERSION < '1.9.0'
+    config.middleware.use Rack::Profiler, :printer => :call_tree
+  end
 end
 
 Dispatcher.after_dispatch do
