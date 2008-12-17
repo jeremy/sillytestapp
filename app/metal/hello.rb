@@ -1,19 +1,17 @@
-require 'singleton'
-
-class Hello
-  include Singleton
+class HelloMetal
   HELLO = [200, { "Content-Type" => "text/html" }, ["Hello World!"]]
   NOT_FOUND = [404, {}, []]
 
-  def self.call(env)
-    instance.call(env)
-  end
+  PATH_INFO = 'PATH_INFO'.freeze
+  MATCH = '/hello'.freeze
 
   def call(env)
-    if env["PATH_INFO"] =~ /^\/hello$/
+    if env[PATH_INFO] == MATCH
       HELLO
     else
       NOT_FOUND
     end
   end
 end
+
+Hello = HelloMetal.new
