@@ -19,8 +19,7 @@ test:
 
 java:
   adapter: jdbcmysql
-  database: silly_app_production
+  database: sillytestapp
   username: root
   host: localhost
   pool: 20
-  
