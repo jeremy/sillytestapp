@@ -30,11 +30,11 @@ Warbler::Config.new do |config|
   # Gems to be included. You need to tell Warbler which gems your application needs
   # so that they can be packaged in the war file.
   # The Rails gems are included by default unless the vendor/rails directory is present.
-  # config.gems += ["activerecord-jdbcmysql-adapter", "jruby-openssl"]
+  config.gems += ["activerecord-jdbcmysql-adapter", "jruby-openssl"]
   # config.gems << "tzinfo"
 
   # Uncomment this if you don't want to package rails gem.
-  # config.gems -= ["rails"]
+  config.gems -= ["rails"]
 
   # The most recent versions of gems are used.
   # You can specify versions of gems by using a hash assignment:
@@ -63,13 +63,12 @@ Warbler::Config.new do |config|
   config.webxml.rails.env = 'java'
 
   # Application booter to use, one of :rack, :rails, or :merb. (Default :rails)
-  # config.webxml.booter = :rails
+  config.webxml.booter = :rack
 
   # When using the :rack booter, "Rackup" script to use.
   # The script is evaluated in a Rack::Builder to load the application.
   # Examples:
-  # config.webxml.rackup = %{require './lib/demo'; run Rack::Adapter::Camping.new(Demo)}
-  # config.webxml.rackup = require 'cgi' && CGI::escapeHTML(File.read("config.ru"))
+  config.webxml.rackup = 'require "#{File.dirname(__FILE__)}/config/environment"; run ActionController::Dispatcher.new'
 
   # Control the pool of Rails runtimes. Leaving unspecified means
   # the pool will grow as needed to service requests. It is recommended
